@@ -1,0 +1,78 @@
+<!-- <!DOCTYPE html> -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Your Cart</title>
+  <style>
+    body{
+        background-color: black;
+    }
+    h2{
+        color: aliceblue;
+    }
+    p{
+        color: aliceblue;
+        font-size: 20px;
+    }
+    h4{
+        color: aliceblue;
+        font-size: 20px;
+    }
+    h1{
+        color: aliceblue;
+    }
+    button a{
+        text-decoration: none;
+        font-size: 20px;
+    }
+    button a:hover{
+        color: red;
+    }
+  </style>
+</head>
+<body>
+  <h1>Your Cart</h1>
+  <div id="cart-items"></div>
+  <h2>Total: ₹<span id="total-price">0</span></h2>
+  <button><a href="./Home.html">Continue Shopping</a></button>
+
+  <script>
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    const cartItemsContainer = document.getElementById('cart-items');
+    const totalPriceElement = document.getElementById('total-price');
+
+    function renderCart() {
+      cartItemsContainer.innerHTML = '';
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        total += item.price;
+
+        const itemDiv = document.createElement('div');
+        itemDiv.innerHTML = `
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+            <img src="${item.image}" alt="${item.name}" width="100" />
+            <div>
+              <h4>${item.name}</h4>
+              <p>₹${item.price}</p>
+              <button onclick="removeItem(${index})">Delete</button>
+            </div>
+          </div>
+        `;
+        cartItemsContainer.appendChild(itemDiv);
+      });
+
+      totalPriceElement.innerText = total.toFixed(2);
+    }
+
+    function removeItem(index) {
+      cart.splice(index, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
+    }
+
+    renderCart();
+  </script>
+</body>
+</html>
