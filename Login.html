@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        .login-container { width: 300px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; }
+        input { display: block; width: 100%; margin: 10px 0; padding: 8px; }
+        button { width: 100%; padding: 10px; background: blue; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <div class="login-container" id="login">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Username">
+        <input type="email" id="email" placeholder="email">
+        <button onclick="login()">Login</button>
+    </div>
+
+    <script> 
+    function login() 
+    { 
+        var username = document.getElementById("username").value; 
+        var email = document.getElementById("email").value; // Allow any non-empty credentials 
+        if (username && email) 
+        { 
+            localStorage.setItem("isLoggedIn", "true"); 
+            localStorage.setItem("username", username); 
+            alert("Login successful!"); 
+            window.location.href = "index.html"; 
+        } 
+        else 
+        { 
+            alert("Please enter both username and email."); 
+        } 
+    } // If already logged in, redirect to index.html 
+    if (localStorage.getItem("isLoggedIn") === "true") 
+    { 
+        window.location.href = "index.html"; 
+
+    } 
+    </script>
+
+</body>
+</html>
